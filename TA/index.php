@@ -73,14 +73,14 @@ $conn = null;
 <div id='border' class="container">
 
   <br>
-  <form>
+  <form method = "post">
     <div class="form-group">
       <label for="email"  class="thick">Email:</label>
-      <input type="email" id="email" name="email" placeholder="Enter email" size="30">
+      <input type="email" id="email" name="email" placeholder="Enter email" size="30" required/>
     </div>
     <div class="form-group">
       <label for="pwd"   class="thick">Password:</label>
-      <input type="password" id="pwd" name="pwd" placeholder="Enter password" size="30">
+      <input type="password" id="pwd" name="pwd" placeholder="Enter password" size="30" minlength = "8" required/>
     </div>
       <label class="form-check-label">
         <a href="#">Forget password</a>
