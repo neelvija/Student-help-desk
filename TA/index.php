@@ -25,7 +25,11 @@
 				$_SESSION["lname"] = $row['last_name'];
 				$_SESSION["email"] = $row['email'];
 
-				echo '<script type="text/javascript">alert("' . $row['user_type'] . '")</script>';
+                if($row['user_type']==='faculty') {
+                    header("Location:./faculty_dashboard.php");
+                } else {
+				    echo '<script type="text/javascript">alert("' . $row['user_type'] . '")</script>';
+                }
 			}
 			else{
 
