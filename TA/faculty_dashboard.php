@@ -1,7 +1,6 @@
 <?php
 session_start();
 if ($_SESSION['message']) {
-    echo $_SESSION['message'];
     echo '<script type="text/javascript">alert("' . $_SESSION['message'] . '");</script>';
     unset($_SESSION['message']);
 }
