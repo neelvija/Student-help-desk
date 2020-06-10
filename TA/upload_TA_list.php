@@ -15,7 +15,7 @@ if ( isset($_FILES["picpath"])) {
         } else {
               $handle = fopen($_FILES['picpath']['tmp_name'], "r");
               $headers = fgetcsv($handle, ",");
-
+			  $row_count = 0;
               $success_count = 0;
               $failure_count = 0;
               while (($data = fgetcsv($handle, ",")) !== FALSE)
@@ -27,14 +27,19 @@ if ( isset($_FILES["picpath"])) {
                         $success_count++;
                         $que = 'INSERT INTO TA_Records (`First Name`, `Last Name`, `Email`, `course`, `registration status`) values ("'.$data[0].'","'.$data[1].'","'.$data[2].'","'.$data[3].'","incomplete")';
                         $result = mysqli_query($conn,$que);
+						
                     }
+					$row_count++;
               }
-
+			  if($row_count == 0){
+				$_SESSION['message']= "Oops! Details in the CSV file should not be empty";
+			  }else{
                     $msg = $_FILES["picpath"]["name"].' successfully uploaded and '.$success_count.' TAs added to course ';
                     if($failure_count > 0){
                         $msg =   $msg .' and '. $failure_count.' failed to add because of insufficient data';
                     }
                     $_SESSION['message'] =  $msg;
+			  }
 
               fclose($handle);
               header("Location:./faculty_dashboard.php");
