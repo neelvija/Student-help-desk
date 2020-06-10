@@ -1,3 +1,11 @@
+<?php
+session_start();
+if ($_SESSION['message']) {
+    echo $_SESSION['message'];
+    echo '<script type="text/javascript">alert("' . $_SESSION['message'] . '");</script>';
+    unset($_SESSION['message']);
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,15 +23,6 @@
     background-repeat:repeat-x;
     background-size: cover;
   }
-
-      .alignleft { 
-    display: inline; 
-    float: left; 
-    } 
-    label.normal {font-weight:normal;}
-    label.light {font-weight:lighter;}
-    label.thick {font-weight:bold;}
-    label.thicker {font-weight:900;}
   #border{
     margin: auto;
     border-style:groove; width: 400px;;
@@ -50,7 +49,6 @@
 
 <div id="border">
 <form name="form1" action="upload_file.php" method="post" enctype="multipart/form-data">
-
   <br>  
   <div class="form-group">
    <label for="email"  class="thick">Email:</label>
@@ -59,7 +57,7 @@
 
   <p id="strong">Upload TA's Photo:</p>
   <div>
-　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form1.path.value=this.value">
+　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form1.path.value=this.value" required>
 　<input type="button" class="btn btn-primary" value="Upload photo" onclick="document.form1.picpath.click()"> 
   <input name="path" readonly>
   <br>
@@ -69,13 +67,13 @@
   </div>
 </form>
 <br>
+<br>
 
 
-<form name="form2" action="upload_file.php" method="post" enctype="multipart/form-data">
-  
+<form name="form2" action="upload_TA_list.php" method="post" enctype="multipart/form-data">
   <p id="strong">Upload TA list:</p>
   
-　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form2.path.value=this.value">　
+　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form2.path.value=this.value" required>　
 　<input type="button" class="btn btn-primary" value="Upload CSV" onclick="document.form2.picpath.click()"> 
   <input name="path" readonly>
   <br>
