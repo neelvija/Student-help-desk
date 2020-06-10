@@ -25,7 +25,7 @@ if ( isset($_FILES["picpath"])) {
                     }
                     else {
                         $success_count++;
-                        $que = 'INSERT INTO TA_Records (`First Name`, `Last Name`, `Email`, `course`, `registration status`) values ("'.$data[0].'","'.$data[1].'","'.$data[2].'","'.$data[3].'","incomplete")';
+                        $que = 'INSERT INTO TA_records (`First Name`, `Last Name`, `Email`, `course`, `registration status`) values ("'.$data[0].'","'.$data[1].'","'.$data[2].'","'.$data[3].'","incomplete")';
                         $result = mysqli_query($conn,$que);
 						
                     }
