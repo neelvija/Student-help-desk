@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba54fac6-88b0-4e7a-a4bd-ae698b0003bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Faculty_dashboard/background1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Faculty_dashboard/faculty_dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/.idea/TA.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/background1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/campus.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/faculty_dashboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/faculty_dashboard.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/signup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/upload_TA_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TA/upload_file.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +23,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectId" id="1d94YqcghgvewEW1PHFyjI1wJIX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -36,5 +47,11 @@
       <updated>1591824025700</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1591878482047">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1591878482047" />
   </component>
 </project>
