@@ -1,48 +1,45 @@
 <!DOCTYPE html>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ta_system";
+session_start();
+$servername = "tethys.cse.buffalo.edu:3306";
+$username = "ashishav";
+$password = "50337024";
+$dbname = "cse442_542_2020_summer_teamh_db";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-
+$msg = "";
 if ( isset($_FILES["picpath"])) {
        //if there was an error uploading the file
         if ($_FILES["picpath"]["error"] > 0) {
-              echo '<script type="text/javascript">alert("Return Code: " '. $_FILES["picpath"]["error"].')</script>';
+              $msg = "Return Code: " . $_FILES["picpath"]["error"];
         } else {
               $em = $_POST['email'];
               $pic = $_FILES['picpath'];
               $name=$pic['name'];
-              $selectTA = "SELECT * FROM ta_records WHERE Email='$em'";
+              $selectTA = "SELECT * FROM TA_records WHERE Email='$em'";
               
               $result = $conn->query($selectTA);
-              /*if ($result->num_rows > 0) {
-    // 输出数据
-    		  while($row = $result->fetch_assoc()) {
-        		echo "id: " . $row["Email"]. "<br>";
-    				}
-				} else {
-    				echo "0 结果";
-				}*/
 
               if($result->num_rows>0){
-                  echo $name;
-                  $tmpfile=$pic['tmp_name']; 
+                  $tmpfile=$pic['tmp_name'];
                   if(!file_exists("upload/".$name))
                   { 
                    move_uploaded_file($tmpfile,"upload/".$name);
-                  }
-                  mysqli_query($conn,"UPDATE ta_records SET Photo='upload/$name' WHERE Email='$em' ");
+
+                  mysqli_query($conn,"UPDATE TA_records SET Photo='upload/$name' WHERE Email='$em' ");
                   mysqli_close();
-                  echo 'Succeed！';
+                  $msg = "Photo successfully uploaded";
+                  } else {
+                       $msg = "Photo already exists!";
+                  }
               } else{
-                  echo 'Sorry! You have not nominated this user as a TA. Please check if there is a typo else consider updating TA database!';
+                  $msg = "User id you entered is not a TA";
               }  	
               }
 } else {
-     echo '<script type="text/javascript">alert("No File selected")</script>';
+     $msg = "No File selected";
 }
+$_SESSION['message'] =  $msg;
+header("Location:./faculty_dashboard.php");
 $conn = null;
 ?>

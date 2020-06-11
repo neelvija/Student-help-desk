@@ -51,10 +51,10 @@ if ($_SESSION['message']) {
   <br>  
   <div class="form-group">
    <label for="email"  class="thick">Email:</label>
-   <input type="email" id="email" placeholder="Enter email" size="30">
+   <input type="email" id="email" name="email" placeholder="Enter email" size="30" required>
   </div>
 
-  <p id="strong">Upload TA's Photo:</p>
+  <p id="strong">Upload TAs Photo:</p>
   <div>
 　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form1.path.value=this.value" required>
 　<input type="button" class="btn btn-primary" value="Upload photo" onclick="document.form1.picpath.click()"> 
