@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,39 +42,44 @@
     <br>
     <br>
     <h2>Already have the code?</h2>
+    <form action="verify.php" method="post">
     <div class="form-group">
+    	<label for="email">Email:</label>
+      
+        <input type="Email" name="email" size="50" placeholder="We need your email to identify you">
     	<label for="vericode">Verification code:</label>
 		<input type="text" name="verication">
 		<br>
 		<input type="submit" class="btn btn-primary btn-sm" value="Verify">
     </div>
+    </form>
     <h2>Sign up</h2>
+    <form>
     <div class="form-group">
       <label for="email">First name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter first name">
+      <input type="text" name="firstname" class="form-control" placeholder="Enter first name">
     </div>
 
     <div class="form-group">
       <label for="email">Last name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter last name">
+      <input type="text" name="lastname" class="form-control" placeholder="Enter last name">
     </div>
 
     <div class="form-group">
       <label for="email">Email:</label>
-      <form name="myForm" action="demo-form.php" onsubmit="return validateForm();" method="post">
-      <input type="text" name="email" size="50" placeholder="Enter email">
       
-      </form>
+      <input type="Email" name="email" size="50" placeholder="Enter email">
+      
     </div>
     
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+      <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password">
 
     </div>
     
-    <button type="sign_up" class="btn btn-primary">Submit</button>
-  <!--</form>-->
+    <input type="submit" class="btn btn-primary btn-sm" value="Submit">
+  	</form>
 </div>
 
 </body>
