@@ -37,43 +37,43 @@
 
 <div class="container">
   
-  <!--<form>-->
-    <br>
-    <br>
-    <h2>Already have the code?</h2>
-    <div class="form-group">
-    	<label for="vericode">Verification code:</label>
-		<input type="text" name="verication">
-		<br>
-		<input type="submit" class="btn btn-primary btn-sm" value="Verify">
-    </div>
-    <h2>Sign up</h2>
-    <div class="form-group">
-      <label for="email">First name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter first name">
-    </div>
+<form name="form1"  method="post" enctype="multipart/form-data">
+  <br>
+  <br>
+  <h2>Already have the code?</h2>
+  <div class="form-group">
+    <label for="vericode">Verification code:</label>
+	<input type="text" name="verication">
+	<br>    
+	<input type="submit" class="btn btn-primary btn-sm" value="Verify">
+  </div>
+</form>
 
-    <div class="form-group">
-      <label for="email">Last name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter last name">
-    </div>
+<form name="form2" action="save_info.php" method="post" enctype="multipart/form-data">
+  <h2>Sign up</h2>
+  <div class="form-group">
+    <label for="email">First name:</label>
+    <input type="text" name="first_name" class="form-control" id="email" placeholder="Enter first name">
+  </div>
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <form name="myForm" action="demo-form.php" onsubmit="return validateForm();" method="post">
-      <input type="text" name="email" size="50" placeholder="Enter email">
-      
-      </form>
-    </div>
+  <div class="form-group">
+    <label for="email">Last name:</label>
+    <input type="text" name="last_name" class="form-control" id="email" placeholder="Enter last name">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" name="email" size="50" placeholder="Enter email">
+  </div>
     
-    <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-
-    </div>
-    
-    <button type="sign_up" class="btn btn-primary">Submit</button>
-  <!--</form>-->
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" name=password class="form-control" id="pwd" placeholder="Enter password">
+  </div>
+  <!--form name="form3" action="save_info.php" method="post" enctype="multipart/form-data"-->
+  <input type="submit" class="btn btn-primary btn-sm" value="submit">
+  <!--/form-->
+</form>
 </div>
 
 </body>
