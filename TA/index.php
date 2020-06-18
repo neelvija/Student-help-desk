@@ -1,5 +1,9 @@
 <?php
  session_start();
+ if ($_SESSION['message']) {
+    echo '<script type="text/javascript">alert("' . $_SESSION['message'] . '");</script>';
+    unset($_SESSION['message']);
+}
 
 	$servername = "tethys.cse.buffalo.edu:3306";
 	$username = "ashishav";

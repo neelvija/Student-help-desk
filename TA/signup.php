@@ -1,17 +1,24 @@
+<?php
+session_start();
+$servername = "tethys.cse.buffalo.edu:3306";
+$username = "ashishav";
+$password = "50337024";
+$dbname = "cse442_542_2020_summer_teamh_db";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if(isset($_POST['Submit'])) {
+    $que = 'INSERT INTO TA_records (`First Name`, `Last Name`, `Email`, `course`, `registration status`) values ("'.$_POST['first_name'].'","'.$_POST['last_name'].'","'.$_POST['email'].'","'.$_POST['pwd'].'","incomplete")';
+    $result = mysqli_query($conn,$que);
+    $_SESSION['message'] = "Congratulations! Check your email for further instructions.";
+    header("Location:./index.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-  <script>
-  function validateForm(){
-    var x=document.forms["myForm"]["email"].value;
-    var atpos=x.indexOf("@");
-    var dotpos=x.lastIndexOf(".");
-    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length){
-      alert("This is not a correct email");
-        return false;
-    }
-  }
-  </script>
+  <title>Sign up</title>
 </head>
 <head>
   <img class="alignright" src="icon.png" alt="Smiley face" width="240" height="160"><h1 align="center">TA AVAILABILITY SYSTEM</h1>
@@ -23,8 +30,6 @@
   <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <style>
- 
-
   .alignright { 
     display: inline; 
     float: right; 
@@ -36,44 +41,32 @@
 
 
 <div class="container">
-  
-  <!--<form>-->
     <br>
     <br>
-    <h2>Already have the code?</h2>
-    <div class="form-group">
-    	<label for="vericode">Verification code:</label>
-		<input type="text" name="verication">
-		<br>
-		<input type="submit" class="btn btn-primary btn-sm" value="Verify">
-    </div>
     <h2>Sign up</h2>
-    <div class="form-group">
-      <label for="email">First name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter first name">
-    </div>
+    <form name="myForm" method="post">
+        <div class="form-group">
+          <label for="first_name">First name:</label>
+          <input type="text" class="form-control" id="first_name" name = "first_name" placeholder="Enter first name" required>
+        </div>
 
-    <div class="form-group">
-      <label for="email">Last name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter last name">
-    </div>
+        <div class="form-group">
+          <label for="last_name">Last name:</label>
+          <input type="text" class="form-control" id="last_name" name = "last_name" placeholder="Enter last name" required>
+        </div>
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <form name="myForm" action="demo-form.php" onsubmit="return validateForm();" method="post">
-      <input type="text" name="email" size="50" placeholder="Enter email">
-      
-      </form>
-    </div>
-    
-    <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" name="email" size="50" placeholder="Enter email" required>
+        </div>
 
-    </div>
-    
-    <button type="sign_up" class="btn btn-primary">Submit</button>
-  <!--</form>-->
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" minlength="8" id="pwd" placeholder="Enter password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" name = "Submit" id="Submit">Submit</button>
+    </form>
 </div>
 
 </body>
