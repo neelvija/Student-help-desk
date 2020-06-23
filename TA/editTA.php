@@ -11,8 +11,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];
 $course = $_POST['course'];
-$em = "shiyulu@buffalo.edu";
-
+$em = $_SESSION['email'];
+//echo '<script type="text/javascript">alert("' .$_POST['lastname']. '");</script>';
 
 
 $msg = "";
@@ -25,8 +25,11 @@ if ( isset($_FILES["picpath"])) {
         else {
 
                   $form_data = $_FILES['picpath']['tmp_name'];
+                  $form_data_type = $_FILES['picpath']['type'];
+
                   $data = addslashes(fread(fopen($form_data, "r"), filesize($form_data)));
-                  mysqli_query($conn,"UPDATE ta_records SET First_Name = '$firstname', Last_Nmae = '$lastname',Photo='$data' WHERE Email='$em' ");
+
+                  mysqli_query($conn,"UPDATE ta_records SET imageType = '$form_data_type', Photo ='$data', First_Name = '$firstname', Last_Name = '$lastname' WHERE Email='$em'");
                   mysqli_query($conn,"UPDATE faculty_course_mapping_table SET course_name = '$course' WHERE instructor_email='$em' ");
                   mysqli_close();
                   $msg = "set successfully!";
@@ -38,7 +41,7 @@ if ( isset($_FILES["picpath"])) {
 }
 $_SESSION['message'] =  $msg;
 
-header("Location:./faculty_dashboard.php");
+header("Location:./TA_dashboard.php");
 
 $conn = null;
 ?>

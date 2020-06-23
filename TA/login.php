@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$servername = "tethys.cse.buffalo.edu:3306";
-$username = "ashishav";
-$password = "50337024";
-$dbname = "cse442_542_2020_summer_teamh_db";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ta_system";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -19,9 +19,14 @@ if($num > 0)
         $_SESSION["fname"] = $row['First_Name'];
         $_SESSION["lname"] = $row['Last_Name'];
         $_SESSION["email"] = $row['Email'];
+        //echo '<script type="text/javascript">alert("' . $_SESSION['email'] . '");</script>';
         if($row['instructor type']==='faculty') {
             header("Location:./faculty_dashboard.php");
-        } else {
+        } 
+        elseif ($row['instructor type']==='TA') {
+        	header("Location:./TA_dashboard.php");
+        }
+        else {
             $_SESSION["message"] =  "instructor type : ".$row['instructor type'];
             header("Location:./index.php");
         }
