@@ -2,7 +2,8 @@
 session_start();
 if (isset($_SESSION['message'])) {
     echo '<script type="text/javascript">alert("' . $_SESSION['message'] . '");</script>';
-    unset($_SESSION['message']);
+
+    
 }
 
 ?>
@@ -50,7 +51,7 @@ body {
 
 }
 
-/* 头部样式 */
+
 .header {
   background-color: #f1f1f1;
   padding: 5px;
@@ -64,38 +65,37 @@ body {
     padding: 0px;
     
 }
-/* 创建三个相等的列 */
+
 .column {
   float: left;
   padding: 10px;
 }
 
-/* 中间区域宽度 */
+
 .column.middle {
   width: 50%;
 }
 
-/* 列后面清除浮动 */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* 响应式布局 - 宽度小于600px时设置上下布局 */
+
 @media screen and (max-width: 600px) {
   .column.side, .column.middle {
     width: 100%;
   }
 }
 
-/* 底部样式 */
+
 .footer {
   background-color: #f1f1f1;
   padding: 10px;
   text-align: center;
   width: 100%;
-  bottom: 0;
+
   position:absolute;
   
 
@@ -184,27 +184,41 @@ body {
 
 <div id="profile" class="tabcontent">
   	<div id='border' class="container">
-
+  <?php
+  $em = $_SESSION['email'];
+  $con=mysqli_connect("localhost","root","","ta_system");
+$result = mysqli_query($con,"SELECT * FROM ta_records WHERE Email='$em'");
+$result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
+while($row = mysqli_fetch_array($result))
+{
+    $fn = $row['First_Name'];
+    $ln = $row['Last_Name'];
+}
+while($row = mysqli_fetch_array($result2))
+{
+  $course = $row['course_name'];
+}
+  ?>
     <br>
             <form name="form3" action="addTA_file.php" method="post" enctype="multipart/form-data">
   			  <label class="thick">Firstname :</label>
   			  <br>
-  			  <label class="thick">Jianping</label>
+  			  <label class="thick"><?php echo $fn ?></label>
   			  <br>
   			  <br>
   			  <label class="thick">Lastname :</label>
   			  <br>
-  			  <label class="thick">Zhang</label>
+  			  <label class="thick"><?php echo $ln ?></label>
   			  <br>
   			  <br>
 			  <lable class="thick"> Email :</lable>
 			  <br>
-			　<label class="thick">zhang249@buffalo.edu</label>
+			　<label class="thick"><?php echo $em ?></label>
 			  <br>
 			  <br>
 			  <lable class="thick">course name :</lable>
 			  <br>
-			  <label class="thick">DIC</label>
+			  <label class="thick"><?php echo $course ?></label>
 			  <br>
 
 			 
@@ -219,9 +233,9 @@ body {
 
 <div id="edit" class="tabcontent">
 	<div id='border' class="container">
-  
-
-            <form name="form1" action="edit_TAinfo.php" method="post" enctype="multipart/form-data">
+          <br>
+          <label class="thick">Email: <?php echo $_SESSION['email']; ?></label>
+            <form name="form1" action="editTA.php" method="post" enctype="multipart/form-data">
           <label class="thick">Firstname :</label>
           
           <input id="floatleft" type="text" name="firstname" placeholder="Enter Your firstname" required>
@@ -234,6 +248,8 @@ body {
           <br>
 
       <lable class="thick">Upload TAs Photo:</lable>
+      <img src="display_photo.php" width="90px", height="120px" />
+      
       <br>
     　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form1.path.value=this.value.replace('C:\\fakepath\\', '')" required>
     　<input id="floatleft" type="button" class="btn btn-success" value="Upload photo" onclick="document.form1.picpath.click()"> 
@@ -244,9 +260,9 @@ body {
       <br>
       <br>
 
-      <input type="submit" class="btn-success btn-sm" name="submit" value="Submit photo">
+      <!--<input type="submit" class="btn-success btn-sm" name="submit" value="Submit photo">-->
 
-        <br>
+        
 
         <lable class="thick">Enter course name :</lable>
         <br>
