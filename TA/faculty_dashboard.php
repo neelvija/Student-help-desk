@@ -50,7 +50,7 @@ body {
 
 }
 
-/* 头部样式 */
+
 .header {
   background-color: #f1f1f1;
   padding: 5px;
@@ -64,38 +64,38 @@ body {
     padding: 0px;
     
 }
-/* 创建三个相等的列 */
+
 .column {
   float: left;
   padding: 10px;
 }
 
-/* 中间区域宽度 */
+
 .column.middle {
   width: 50%;
 }
 
-/* 列后面清除浮动 */
+
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* 响应式布局 - 宽度小于600px时设置上下布局 */
+
 @media screen and (max-width: 600px) {
   .column.side, .column.middle {
     width: 100%;
   }
 }
 
-/* 底部样式 */
+
 .footer {
   background-color: #f1f1f1;
   padding: 10px;
   text-align: center;
   width: 100%;
-  bottom: 0;
+  
   position:absolute;
   
 
@@ -281,10 +281,10 @@ body {
    </thead>
    <tbody>
    <?php
-    $servername = "tethys.cse.buffalo.edu:3306";
-    $username = "ashishav";
-    $password = "50337024";
-    $dbname = "cse442_542_2020_summer_teamh_db";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "ta_system";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
     $loggedin_user = $_SESSION["email"];

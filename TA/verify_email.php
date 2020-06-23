@@ -2,10 +2,10 @@
 session_start();
 include './send_mail.php';
 
-$servername = "tethys.cse.buffalo.edu:3306";
-$username = "ashishav";
-$password = "50337024";
-$dbname = "cse442_542_2020_summer_teamh_db";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ta_system";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -39,9 +39,9 @@ if($num > 0)
                 $ta_records_update = "UPDATE TA_records SET `confirmation code` = '$new_code', `timestamp` = $current_timestamp WHERE `Email`='$email' ";
                 $result = mysqli_query($conn,$ta_records_update);
 
-                var send_result = send_email($email,$confirmation_code);
+                $send_result = send_email($email,$confirmation_code);
 
-                if (send_result === "0") {
+                if ($send_result === "0") {
                     $ta_records_update = "UPDATE TA_records SET `confirmation code` = '$actual_code' WHERE `Email`='$email' ";
                     $result = mysqli_query($conn,$ta_records_update);
                     $_SESSION['message'] = "Oops! something went wrong.";

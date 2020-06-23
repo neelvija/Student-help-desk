@@ -92,7 +92,7 @@ body {
   padding: 10px;
   text-align: center;
   width: 100%;
-  bottom: 0;
+  
   position:absolute;
 }
 
