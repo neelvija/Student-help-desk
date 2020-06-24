@@ -8,12 +8,18 @@ $dbname = "ta_system";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$que = "SELECT * FROM TA_records WHERE Email = '".$_POST['login_email']."' AND password='".$_POST['login_pwd']."'";
-$result = mysqli_query($conn,$que);
+//$que = "SELECT * FROM TA_records WHERE Email = '".$_POST['login_email']."' AND password='".$_POST['login_pwd']."'";
+//$result = mysqli_query($conn,$que);
+//prepared statement
+$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email = ? and password = ?");
+$stmt->bind_param("ss", $email, $pw);
+$email = $_POST['login_email'];
+$pw = $_POST['login_pwd'];
+$stmt->execute();
+$result = $stmt->get_result();
 
-$row = mysqli_fetch_array($result);
-$num = mysqli_num_rows($result);
-if($num > 0)
+
+if($row = $result->fetch_assoc())
 {
     if($row['registration status'] === "verified") {
         $_SESSION["fname"] = $row['First_Name'];
