@@ -118,6 +118,9 @@ body {
  #floatleft{
   float: left;
  }
+ #floatright{
+  float: right;
+ }
 #border {border-style:groove; width: 300px;;
         Background-color: rgba(0,0,0,0.7);
       border-style: solid;
@@ -160,20 +163,29 @@ body {
           <div id="officehour" class="tabcontent" style= "display:block";>
             <div id='border' class="container">
             <br>
+              <?php
+  				$em = $_SESSION['email'];
+  				?>
 
           <label class="thick">Office Hours :</label>
-          <label class="thick">7:00-9:00</label>
+          <label class="thick">7:00-9:0044</label>
           <br>
           <br>
-        <input type="submit" class="btn btn-primary btn-sm" name="submit" value="Start Office Hours">
-        <br>
+          
+          <form name="form1" action="start_office.php" method="post">
+
+        	<input type="submit" class="btn btn-primary btn-sm" name="start" value="Start Office Hours"/>
+
+    	</form>
+
         <br>  
-        <input type="submit" class="btn btn-primary btn-sm" name="submit" value="End Office Hours">
+        <form name="form2" action="end_office.php" method="post">
+        <input type="submit" class="btn btn-danger btn-sm" name="End" value="End Office Hours"/>
 			  <br>
-			  <br>
-			  <input type="submit" class="btn btn-danger btn-sm" name="submit" value="Log Out">
-			 <br>
-       <br>
+		</form>
+		<br>
+
+
 
           </div>
           
@@ -201,7 +213,7 @@ while($row = mysqli_fetch_array($result2))
   ?>
     <br>
             <form name="form3" action="addTA_file.php" method="post" enctype="multipart/form-data">
-  			  <label class="thick">Firstname :</label>
+  			  <label class="thick">Firstname :</label><img src="display_photo.php" width="90px", height="120px", id="floatright" />
   			  <br>
   			  <label class="thick"><?php echo $fn ?></label>
   			  <br>
@@ -209,13 +221,16 @@ while($row = mysqli_fetch_array($result2))
   			  <label class="thick">Lastname :</label>
   			  <br>
   			  <label class="thick"><?php echo $ln ?></label>
+          <br>
+          
+      
   			  <br>
-  			  <br>
+  			  
 			  <lable class="thick"> Email :</lable>
-			  <br>
-			　<label class="thick"><?php echo $em ?></label>
-			  <br>
-			  <br>
+			  
+			　<p class="thick"><?php echo $em ?></p>
+			  
+			  
 			  <lable class="thick">course name :</lable>
 			  <br>
 			  <label class="thick"><?php echo $course ?></label>
@@ -286,7 +301,10 @@ while($row = mysqli_fetch_array($result2))
 </div>
 
 <div class="footer" >
-  <p class="thick">Office phone number: 7165800633 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Office email: shiyulu@buffalo.edu</p>
+	<?php
+  $em = $_SESSION['email'];
+  ?>
+  <p class="thick">Office phone number: 7165800633 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Office email: <?php echo $em ?></p>
 
 </div>
 </body>
