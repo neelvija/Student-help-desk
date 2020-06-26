@@ -230,7 +230,48 @@ while($row = mysqli_fetch_array($result2))
           
           </div>
 
-  
+  <!-- end office hour page -->
+          <div id="end" class="tabcontent">
+            <div id='border' class="container">
+  <?php
+  $em = $_SESSION['email'];
+  $servername = "tethys.cse.buffalo.edu:3306";
+    $username = "ashishav";
+    $password = "50337024";
+    $dbname = "cse442_542_2020_summer_teamh_db";
+
+    $con = mysqli_connect($servername, $username, $password, $dbname);
+
+$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
+while($row = mysqli_fetch_array($result))
+{
+    $ml = $row['Office_Location'];
+    $ci = $row['course_id'];
+}
+
+  ?>
+      <br>
+
+        <form name="form2" action="end_office.php" method="post">
+        <label class="thick">Meeting Link :</label>
+    <br>
+    <label class="thick"><?php echo $ml ?></label>
+    <br>
+    <label class="thick">Course id :</label>
+    <br>
+    <label class="thick"><?php echo $ci ?></label>
+    <br>
+        <input type="submit" class="btn btn-danger btn-sm" name="End" value="End"/>
+        <br>
+    </form>
+    <br>
+
+
+
+          </div>
+          
+          </div>
+
 
 
 
