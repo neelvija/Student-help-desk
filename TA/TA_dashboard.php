@@ -345,7 +345,47 @@ while($row = mysqli_fetch_array($result2))
 </div>
 
 
+<!--Edit TA Profile-->
 
+<div id="edit" class="tabcontent">
+  <div id='border' class="container">
+          <br>
+          <label class="thick">Email: <?php echo $_SESSION['email']; ?></label>
+            <form name="form1" action="editTA.php" method="post" enctype="multipart/form-data">
+          <label class="thick">Firstname :</label>
+          
+          <input id="floatleft" type="text" name="firstname" value=<?php echo $fn ?> required>
+          <br>
+          <br>
+          <label class="thick">Lastname :</label>
+          <br>
+          <input id="floatleft" type="text" name="lastname" value=<?php echo $ln ?> required>
+          <br>
+          <br>
+
+      <lable class="thick">Upload TAs Photo:</lable>
+      <img src="display_photo.php" width="90px", height="120px" />
+      
+      <br>
+    　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form1.path.value=this.value.replace('C:\\fakepath\\', '')">
+    　<input id="floatleft" type="button" class="btn btn-success" value="Upload photo" onclick="document.form1.picpath.click()"> 
+
+      <br>
+      <br>
+      <input name="path" readonly>
+      <br>
+      <br>
+
+     
+        <input type="submit" class="btn btn-primary" name="submit" value="Save">
+       
+      </form>
+      <br>
+
+    </div>
+    <br>
+    <br>
+</div>
 
 
 
@@ -354,7 +394,7 @@ while($row = mysqli_fetch_array($result2))
 </div>
 
 <div class="footer" >
-  <p class="thick">Office phone number: 7165800633 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Office email: shiyulu@buffalo.edu</p>
+  <p class="thick">Office phone number: 9999999999 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Office email: university@buffalo.edu</p>
 
 </div>
 </body>
