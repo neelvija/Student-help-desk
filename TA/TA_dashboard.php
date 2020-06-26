@@ -2,8 +2,6 @@
 session_start();
 if (isset($_SESSION['message'])) {
     echo '<script type="text/javascript">alert("' . $_SESSION['message'] . '");</script>';
-
-    
 }
 
 ?>
@@ -122,12 +120,12 @@ body {
   float: right;
  }
 #border {border-style:groove; width: 300px;;
-        Background-color: rgba(0,0,0,0.7);
+        Background-color: rgba(0,0,0,0.2);
       border-style: solid;
       border-radius: 15px;}
 .thick {font-weight:bold;
-		color:#0000ff;
-		}
+    color:#0000ff;
+    }
 
 
 
@@ -151,7 +149,8 @@ body {
       <ul>
         <li onclick="openCity(event,'edit')" class="tablinks">Edit Profile</li>
         <li onclick="openCity(event,'profile')" class="tablinks">My Profile</li>
-        <li onclick="openCity(event,'officehour')" class="tablinks active">Office Hour</li>
+        <li onclick="openCity(event,'end')" class="tablinks">End Office Hours</li>
+        <li onclick="openCity(event,'start')" class="tablinks active">Start Office Hours</li>
       </ul>
 </div>
 </div>
@@ -159,140 +158,81 @@ body {
 <div id="center" class="row">
 <div class="column middle" id="center">
 
-  <!-- office hour page -->
-          <div id="officehour" class="tabcontent" style= "display:block";>
-            <div id='border' class="container">
-            <br>
-              <?php
-  				$em = $_SESSION['email'];
-  				?>
-
-          <label class="thick">Office Hours :</label>
-          <label class="thick">7:00-9:0044</label>
-          <br>
-          <br>
-          
-          <form name="form1" action="start_office.php" method="post">
-
-        	<input type="submit" class="btn btn-primary btn-sm" name="start" value="Start Office Hours"/>
-
-    	</form>
-
-        <br>  
-        <form name="form2" action="end_office.php" method="post">
-        <input type="submit" class="btn btn-danger btn-sm" name="End" value="End Office Hours"/>
-			  <br>
-		</form>
-		<br>
-
-
-
-          </div>
-          
-          </div>
-
-<!--TA Profile-->
-
-
-<div id="profile" class="tabcontent">
-  	<div id='border' class="container">
-  <?php
+ <!-- start office hour page -->
+<?php
   $em = $_SESSION['email'];
-  $con=mysqli_connect("localhost","root","","ta_system");
-$result = mysqli_query($con,"SELECT * FROM ta_records WHERE Email='$em'");
+ $servername = "tethys.cse.buffalo.edu:3306";
+    $username = "ashishav";
+    $password = "50337024";
+    $dbname = "cse442_542_2020_summer_teamh_db";
+
+    $con = mysqli_connect($servername, $username, $password, $dbname);
+
+$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
 $result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
 while($row = mysqli_fetch_array($result))
 {
     $fn = $row['First_Name'];
     $ln = $row['Last_Name'];
 }
+$course = array();
+$courseid = array();
+$i = 0;
+
 while($row = mysqli_fetch_array($result2))
-{
-  $course = $row['course_name'];
+{ 
+  $course[$i] = $row['course_name'];
+  $courseid[$i] = $row['course_id'];
+  $i = $i + 1;
 }
+
   ?>
+          <div id="start" class="tabcontent" style= "display:block";>
+            <div id='border' class="container">
+            <br>
+              <?php
+          $em = $_SESSION['email'];
+          ?>
+    
+          <form name="form3" action="start_office.php" method="post">
+    <label class="thick">Meeting Link :</label>
     <br>
-            <form name="form3" action="addTA_file.php" method="post" enctype="multipart/form-data">
-  			  <label class="thick">Firstname :</label><img src="display_photo.php" width="90px", height="120px", id="floatright" />
-  			  <br>
-  			  <label class="thick"><?php echo $fn ?></label>
-  			  <br>
-  			  <br>
-  			  <label class="thick">Lastname :</label>
-  			  <br>
-  			  <label class="thick"><?php echo $ln ?></label>
-          <br>
-          
-      
-  			  <br>
-  			  
-			  <lable class="thick"> Email :</lable>
-			  
-			　<p class="thick"><?php echo $em ?></p>
-			  
-			  
-			  <lable class="thick">course name :</lable>
-			  <br>
-			  <label class="thick"><?php echo $course ?></label>
-			  <br>
+    <input id="floatleft" type="text" name="meetinglink" placeholder="Enter Your Meeting Link" required>
+    <br>
+    <br>
 
-			 
-			</form>
-			<br>
-
-	</div>
-	<br>
-</div>
-
-<!--Edit TA Profile-->
-
-<div id="edit" class="tabcontent">
-	<div id='border' class="container">
-          <br>
-          <label class="thick">Email: <?php echo $_SESSION['email']; ?></label>
-            <form name="form1" action="editTA.php" method="post" enctype="multipart/form-data">
-          <label class="thick">Firstname :</label>
-          
-          <input id="floatleft" type="text" name="firstname" placeholder="Enter Your firstname" required>
-          <br>
-          <br>
-          <label class="thick">Lastname :</label>
-          <br>
-          <input id="floatleft" type="text" name="lastname" placeholder="Enter Your lastname" required>
-          <br>
-          <br>
-
-      <lable class="thick">Upload TAs Photo:</lable>
-      <img src="display_photo.php" width="90px", height="120px" />
-      
-      <br>
-    　<input type="file" name="picpath" id="picpath" style="display:none;" onChange="document.form1.path.value=this.value.replace('C:\\fakepath\\', '')" required>
-    　<input id="floatleft" type="button" class="btn btn-success" value="Upload photo" onclick="document.form1.picpath.click()"> 
-
-      <br>
-      <br>
-      <input name="path" readonly>
-      <br>
-      <br>
-
-      <!--<input type="submit" class="btn-success btn-sm" name="submit" value="Submit photo">-->
-
-        
-
-        <lable class="thick">Enter course name :</lable>
+              <div class="btn-group">
+            <label class="thick">select course:</label>
         <br>
-        <input id="floatleft" type="text" name="course" placeholder="Enter Your course" required>
+        <p></p>
+        <select  name='courselist' required>
+          <option value=''>Select Course</option>;
+        <?php 
+        $i = 0;
+        $n = count($course);
+        while ($i < $n)
+        {
+          //echo $course[$i];
+          echo "<option value='$courseid[$i]'>".$course[$i]."</option>";
+          $i = $i + 1;
+
+        }
+         ?>
+         </select>
+         </div>
         <br>
         <br>
-        <input type="submit" class="btn btn-primary" name="submit" value="Save">
-       
+          <input type="submit" class="btn btn-success btn-sm" name="start" value="Start" />
       </form>
       <br>
+      <br>
+           </div>
+          
+          </div>
 
-    </div>
-    <br>
-    <br>
-</div>
+  
+
+
 
 
 
@@ -305,14 +245,4 @@ while($row = mysqli_fetch_array($result2))
 
 </div>
 </body>
-</html> 
-<?php
-if(isset($_SESSION['listTAs'])) {
-    echo '<script type="text/javascript">openCity(event,"TAlist");</script>';
-    unset($_SESSION['listTAs']);
-}
-if(isset($_SESSION['removeTA'])) {
-    echo '<script type="text/javascript">openCity(event,"remove");</script>';
-    unset($_SESSION['removeTA']);
-}
-?>
+</html>
