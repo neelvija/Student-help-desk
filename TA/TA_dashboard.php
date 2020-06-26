@@ -265,12 +265,84 @@ while($row = mysqli_fetch_array($result))
         <br>
     </form>
     <br>
-
-
-
           </div>
           
           </div>
+
+<!--TA Profile-->
+
+
+<div id="profile" class="tabcontent">
+    <div id='border' class="container">
+  <?php
+  $em = $_SESSION['email'];
+
+  $servername = "tethys.cse.buffalo.edu:3306";
+    $username = "ashishav";
+    $password = "50337024";
+    $dbname = "cse442_542_2020_summer_teamh_db";
+
+    $con = mysqli_connect($servername, $username, $password, $dbname);
+
+
+$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
+$result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
+while($row = mysqli_fetch_array($result))
+{
+    $fn = $row['First_Name'];
+    $ln = $row['Last_Name'];
+}
+$course = array();
+$i = 0;
+while($row = mysqli_fetch_array($result2))
+{ 
+  $course[$i] = $row['course_name'];
+  $i = $i + 1;
+}
+
+  ?>
+    <br>
+            <form name="form3" action="addTA_file.php" method="post" enctype="multipart/form-data">
+          <label class="thick">Firstname :</label><img src="display_photo.php" width="90px", height="120px", id="floatright" />
+          <br>
+          <label class="thick"><?php echo $fn ?></label>
+          <br>
+          <br>
+          <label class="thick">Lastname :</label>
+          <br>
+          <label class="thick"><?php echo $ln ?></label>
+          <br>
+          
+      
+          <br>
+          
+        <lable class="thick"> Email :</lable>
+        
+      　<p class="thick"><?php echo $em ?></p>
+        
+        
+        <lable class="thick">course name :</lable>
+        <br>
+        <label class="thick"><?php 
+        $i = 0;
+        $n = count($course);
+        while ($i < $n)
+        {
+          echo $course[$i];
+          echo "<br>";
+          $i = $i + 1;
+
+        }
+         ?></label>
+        <br>
+
+       
+      </form>
+      <br>
+
+  </div>
+  <br>
+</div>
 
 
 
