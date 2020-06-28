@@ -33,17 +33,19 @@ if(count($url_components)>3){
     $dbname = "cse442_542_2020_summer_teamh_db";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    $que = "SELECT * FROM TA_records WHERE `Is available` = 'true' AND `Email` IN (SELECT instructor_email FROM faculty_course_mapping_table WHERE course_id = '".$params['course_id']."' ) ";
+    $que = "SELECT * FROM TA_records WHERE `Is_available` = 'true' AND `course_id` = '".$params['course_id']."'";
     $result = mysqli_query($conn,$que);
 
     $num = mysqli_num_rows($result);
     if($num>0) {
         while($row = mysqli_fetch_assoc($result))
     {
-        $office_location = $row['Office Location'];
+        $office_location = $row['Office_Location'];
         ?>
       <tr>
-         <td class="thick"><?php echo $row['First_Name']." ".$row['Last_Name'];?></td>
+         <td class="thick">
+         <?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $row['Photo'] ).'" height="96" width="70"/><br/>';
+         echo $row['First_Name']." ".$row['Last_Name'];?></td>
          <td class="thick"><?php echo "<a href='$office_location' target='_blank'>$office_location</a>";?></td>
       </tr>
       <?php
