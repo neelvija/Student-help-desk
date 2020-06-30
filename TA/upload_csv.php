@@ -25,9 +25,11 @@ if ( isset($_FILES["picpath"])) {
                     }
                     else {
                         $success_count++;
-                        $que = 'INSERT INTO TA_records (`First Name`, `Last Name`, `Email`, `course`, `registration status`) values ("'.$data[0].'","'.$data[1].'","'.$data[2].'","'.$data[3].'","incomplete")';
+                        $que = 'INSERT INTO TA_records (`First_Name`, `Last_Name`, `Email`, `registration status`, `instructor type`) values ("'.$data[0].'","'.$data[1].'","'.$data[2].'","incomplete","TA")';
                         $result = mysqli_query($conn,$que);
-						
+
+						$que = 'INSERT INTO faculty_course_mapping_table (`course_name`, `course_id`, `instructor_email`, `instructor_type`) values ("'.$data[3].'","542","'.$data[2].'","TA")';
+                        $result = mysqli_query($conn,$que);
                     }
 					$row_count++;
               }
@@ -42,10 +44,12 @@ if ( isset($_FILES["picpath"])) {
 			  }
 
               fclose($handle);
+              $_SESSION['listTAs'] =  "success";
               header("Location:./faculty_dashboard.php");
         }
 } else {
-     echo '<script type="text/javascript">alert("No File selected")</script>';
+     $_SESSION['message'] = "No File selected";
+     header("Location:./faculty_dashboard.php");
 }
 $conn = null;
 ?>
