@@ -13,12 +13,16 @@ $l_name = $_POST['lastname'];
 $email = $_POST['signup_email'];
 $password = $_POST['signup_password'];
 $confirmation_code = rand(1000,9999);
-$que = "SELECT * FROM TA_records WHERE Email = '$email'";
-$result = mysqli_query($conn,$que);
+//$que = "SELECT * FROM TA_records WHERE Email = '$email'";
+//$result = mysqli_query($conn,$que);
 
-$row = mysqli_fetch_array($result);
-$num = mysqli_num_rows($result);
-if($num > 0)
+$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email = ?");
+$stmt->bind_param("s", $email);
+$email = $email;
+$stmt->execute();
+$result = $stmt->get_result();
+
+if($row = $result->fetch_assoc())
 {
     if($row['registration status'] === 'registered') {
         $_SESSION["message"] = "User already registered! Check your email for further instructions.";

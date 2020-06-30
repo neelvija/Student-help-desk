@@ -8,10 +8,16 @@ $dbname = "cse442_542_2020_summer_teamh_db";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 $em = $_POST['rmTA'];
-$selectTA = "SELECT Email FROM TA_records WHERE Email='$em'";
-$result = $conn->query($selectTA);
+//$selectTA = "SELECT Email FROM TA_records WHERE Email='$em'";
+//$result = $conn->query($selectTA);
 
-if($result->num_rows > 0){
+$stmt = $conn->prepare("SELECT Email FROM TA_records WHERE Email=?");
+$stmt->bind_param("s", $email);
+$email = $em;
+$stmt->execute();
+$result = $stmt->get_result();
+
+if($row = $result->fetch_assoc()){
 	mysqli_query($conn,"DELETE FROM TA_Records WHERE Email='$em'");
     mysqli_close();
     $_SESSION['message'] = "TA removed successfully!";

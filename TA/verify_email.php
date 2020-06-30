@@ -12,12 +12,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $confirmation_code = $_POST['verication_code'];
 $email = $_POST['verify_email'];
 
-$que = "SELECT * FROM TA_records WHERE Email = '$email'";
-$result = mysqli_query($conn,$que);
+$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email = ?");
+$stmt->bind_param("s", $email);
+$email = $_POST['verify_email'];
+$stmt->execute();
+$result = $stmt->get_result();
 
-$row = mysqli_fetch_array($result);
-$num = mysqli_num_rows($result);
-if($num > 0)
+if($row = $result->fetch_assoc())
 {
     if($row['registration status'] === 'verified') {
         $_SESSION["message"] = "User already have verified account!";

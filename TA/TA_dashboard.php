@@ -285,16 +285,30 @@ while($row = mysqli_fetch_array($result))
     $con = mysqli_connect($servername, $username, $password, $dbname);
 
 
-$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
-$result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
-while($row = mysqli_fetch_array($result))
+//$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
+//$result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
+
+$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email= ?");
+$stmt->bind_param("s", $email);
+$email = $em;
+$stmt->execute();
+$result = $stmt->get_result();
+
+while($row = $result->fetch_assoc())
 {
     $fn = $row['First_Name'];
     $ln = $row['Last_Name'];
 }
+
+$stmt = $conn->prepare("SELECT * FROM faculty_course_mapping_table WHERE instructor_email= ?");
+$stmt->bind_param("s", $email);
+$email = $em;
+$stmt->execute();
+$result2 = $stmt->get_result();
+
 $course = array();
 $i = 0;
-while($row = mysqli_fetch_array($result2))
+while($row = $result2->fetch_assoc())
 { 
   $course[$i] = $row['course_name'];
   $i = $i + 1;

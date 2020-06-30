@@ -288,11 +288,17 @@ body {
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
     $loggedin_user = $_SESSION["email"];
-    $que = "SELECT * FROM faculty_course_mapping_table WHERE `course_name` IN (select course_name from faculty_course_mapping_table where `instructor_email` = '$loggedin_user')";
-    $result = mysqli_query($conn,$que);
+    //$que = "SELECT * FROM faculty_course_mapping_table WHERE `course_name` IN (select course_name from faculty_course_mapping_table where `instructor_email` = '$loggedin_user')";
+    //$result = mysqli_query($conn,$que);
+
+    $stmt = $conn->prepare("SELECT * FROM faculty_course_mapping_table WHERE `course_name` IN (select course_name from faculty_course_mapping_table where `instructor_email` = ?)");
+    $stmt->bind_param("s", $email);
+    $email = $loggedin_user;
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     $num = mysqli_num_rows($result);
-        while($row = mysqli_fetch_assoc($result))
+        while($row = $result->fetch_assoc())
     {
         ?>
       <tr>

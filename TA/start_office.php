@@ -12,12 +12,16 @@ $course = $_POST['courselist'];
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 $que = "UPDATE TA_records SET Is_available = 'true', Office_Location = '$ml',course_id = '$course' where Email = '$em' ";
-$jugy = "SELECT Is_available from TA_records where Email='$em'";
+//$jugy = "SELECT Is_available from TA_records where Email='$em'";
+//$result2 = mysqli_query($conn,$jugy);
 
+$stmt = $conn->prepare("SELECT Is_available from TA_records where Email= ?");
+$stmt->bind_param("s", $email);
+$email = $em;
+$stmt->execute();
+$result = $stmt->get_result();
 
-$result2 = mysqli_query($conn,$jugy);
-
-while($row = mysqli_fetch_array($result2))
+while($row = $result->fetch_assoc())
 {
   $flag = $row['Is_available'];
 }
