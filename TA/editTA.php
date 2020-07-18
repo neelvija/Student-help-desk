@@ -18,12 +18,7 @@ $msg = "";
 if ( isset($_FILES["picpath"])) {
        //if there was an error uploading the file
         if ($_FILES["picpath"]["error"] > 0) {
-              //mysqli_query($conn,"UPDATE TA_records SET First_Name = '$firstname', Last_Name = '$lastname' WHERE Email='$em'");
-              $stmt = $conn->prepare("UPDATE TA_records SET First_Name = '$firstname', Last_Name = '$lastname' WHERE Email= ?");
-              $stmt->bind_param("s", $email);
-              $email = $em;
-              $stmt->execute();
-
+              mysqli_query($conn,"UPDATE TA_records SET First_Name = '$firstname', Last_Name = '$lastname' WHERE Email='$em'");
               $msg = "Details updated successfully!";
         }
         else {
@@ -33,12 +28,7 @@ if ( isset($_FILES["picpath"])) {
                   $data = addslashes(fread(fopen($form_data, "r"), filesize($form_data)));
 
                   mysqli_query($conn,"UPDATE TA_records SET imageType = '$form_data_type', Photo ='$data', First_Name = '$firstname', Last_Name = '$lastname' WHERE Email='$em'");
-
-                  $stmt = $conn->prepare("UPDATE TA_records SET imageType = '$form_data_type', Photo ='$data', First_Name = '$firstname', Last_Name = '$lastname' WHERE Email= ?";
-                  $stmt->bind_param("s", $email);
-                  $email = $em;
-                  $stmt->execute();
-
+                  //mysqli_query($conn,"UPDATE faculty_course_mapping_table SET course_name = '$course' WHERE instructor_email='$em' ");
                   mysqli_close();
                   $msg = "Details updated successfully!";
 

@@ -12,13 +12,12 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 $confirmation_code = $_POST['verication_code'];
 $email = $_POST['verify_email'];
 
-$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email = ?");
-$stmt->bind_param("s", $email);
-$email = $_POST['verify_email'];
-$stmt->execute();
-$result = $stmt->get_result();
+$que = "SELECT * FROM TA_records WHERE Email = '$email'";
+$result = mysqli_query($conn,$que);
 
-if($row = $result->fetch_assoc())
+$row = mysqli_fetch_array($result);
+$num = mysqli_num_rows($result);
+if($num > 0)
 {
     if($row['registration status'] === 'verified') {
         $_SESSION["message"] = "User already have verified account!";
@@ -40,9 +39,9 @@ if($row = $result->fetch_assoc())
                 $ta_records_update = "UPDATE TA_records SET `confirmation code` = '$new_code', `timestamp` = $current_timestamp WHERE `Email`='$email' ";
                 $result = mysqli_query($conn,$ta_records_update);
 
-                var send_result = send_email($email,$confirmation_code);
+                $send_result = send_email($email,$new_code);
 
-                if (send_result === "0") {
+                if ($send_result === "0") {
                     $ta_records_update = "UPDATE TA_records SET `confirmation code` = '$actual_code' WHERE `Email`='$email' ";
                     $result = mysqli_query($conn,$ta_records_update);
                     $_SESSION['message'] = "Oops! something went wrong.";

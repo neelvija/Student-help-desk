@@ -13,16 +13,12 @@ $l_name = $_POST['lastname'];
 $email = $_POST['signup_email'];
 $password = $_POST['signup_password'];
 $confirmation_code = rand(1000,9999);
-//$que = "SELECT * FROM TA_records WHERE Email = '$email'";
-//$result = mysqli_query($conn,$que);
+$que = "SELECT * FROM TA_records WHERE Email = '$email'";
+$result = mysqli_query($conn,$que);
 
-$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email = ?");
-$stmt->bind_param("s", $email);
-$email = $email;
-$stmt->execute();
-$result = $stmt->get_result();
-
-if($row = $result->fetch_assoc())
+$row = mysqli_fetch_array($result);
+$num = mysqli_num_rows($result);
+if($num > 0)
 {
     if($row['registration status'] === 'registered') {
         $_SESSION["message"] = "User already registered! Check your email for further instructions.";
@@ -35,9 +31,9 @@ if($row = $result->fetch_assoc())
         $ta_records_update = "UPDATE TA_records SET `First_Name`='$f_name',`Last_Name`='$l_name',`password`='$password',`confirmation code`='$confirmation_code', `timestamp` = '$current_timestamp', `registration status`='registered' WHERE `Email`='$email' ";
         $result = mysqli_query($conn,$ta_records_update);
 
-        var send_result = send_email($email,$confirmation_code);
+        $send_result = send_email($email,$confirmation_code);
 
-        if (send_result === "0") {
+        if ($send_result === "0") {
             $_SESSION['message'] = "Oops! something went wrong.";
             $ta_records_update = "UPDATE TA_records SET `registration status`='incomplete' WHERE `Email`='$email' ";
             $result = mysqli_query($conn,$ta_records_update);

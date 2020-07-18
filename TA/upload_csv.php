@@ -28,7 +28,7 @@ if ( isset($_FILES["picpath"])) {
                         $que = 'INSERT INTO TA_records (`First_Name`, `Last_Name`, `Email`, `registration status`, `instructor type`) values ("'.$data[0].'","'.$data[1].'","'.$data[2].'","incomplete","TA")';
                         $result = mysqli_query($conn,$que);
 
-						$que = 'INSERT INTO faculty_course_mapping_table (`course_name`, `course_id`, `instructor_email`, `instructor_type`) values ("'.$data[3].'","542","'.$data[2].'","TA")';
+						$que = 'INSERT INTO faculty_course_mapping_table (`course_name`, `course_id`, `instructor_email`, `instructor_type`) values ("'.$data[3].'","'.$data[4].'","'.$data[2].'","TA")';
                         $result = mysqli_query($conn,$que);
                     }
 					$row_count++;

@@ -13,16 +13,9 @@ if (mysqli_connect_errno())
     echo "Connect fail: " . mysqli_connect_error();
 }
 
-//$result = mysqli_query($con,"SELECT Photo, imageType FROM TA_records WHERE Email='$em'");
+$result = mysqli_query($con,"SELECT Photo, imageType FROM TA_records WHERE Email='$em'");
 
-$stmt = $conn->prepare("SELECT Photo, imageType FROM TA_records WHERE Email=?");
-$stmt->bind_param("s", $email);
-$email = $em;
-
-$stmt->execute();
-$result = $stmt->get_result();
-
-while($row = $result->fetch_assoc())
+while($row = mysqli_fetch_array($result))
 {
 
 header("Content-type: " . $row["imageType"]);

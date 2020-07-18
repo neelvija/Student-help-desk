@@ -265,9 +265,13 @@ while($row = mysqli_fetch_array($result))
         <br>
     </form>
     <br>
+
+
+
           </div>
           
           </div>
+
 
 <!--TA Profile-->
 
@@ -285,30 +289,16 @@ while($row = mysqli_fetch_array($result))
     $con = mysqli_connect($servername, $username, $password, $dbname);
 
 
-//$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
-//$result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
-
-$stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email= ?");
-$stmt->bind_param("s", $email);
-$email = $em;
-$stmt->execute();
-$result = $stmt->get_result();
-
-while($row = $result->fetch_assoc())
+$result = mysqli_query($con,"SELECT * FROM TA_records WHERE Email='$em'");
+$result2 = mysqli_query($con,"SELECT * FROM faculty_course_mapping_table WHERE instructor_email='$em'");
+while($row = mysqli_fetch_array($result))
 {
     $fn = $row['First_Name'];
     $ln = $row['Last_Name'];
 }
-
-$stmt = $conn->prepare("SELECT * FROM faculty_course_mapping_table WHERE instructor_email= ?");
-$stmt->bind_param("s", $email);
-$email = $em;
-$stmt->execute();
-$result2 = $stmt->get_result();
-
 $course = array();
 $i = 0;
-while($row = $result2->fetch_assoc())
+while($row = mysqli_fetch_array($result2))
 { 
   $course[$i] = $row['course_name'];
   $i = $i + 1;
@@ -357,7 +347,6 @@ while($row = $result2->fetch_assoc())
   </div>
   <br>
 </div>
-
 
 <!--Edit TA Profile-->
 
@@ -408,7 +397,7 @@ while($row = $result2->fetch_assoc())
 </div>
 
 <div class="footer" >
-  <p class="thick">Office phone number: 9999999999 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Office email: university@buffalo.edu</p>
+  <p class="thick">Office phone number: 7165800633 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Office email: shiyulu@buffalo.edu</p>
 
 </div>
 </body>

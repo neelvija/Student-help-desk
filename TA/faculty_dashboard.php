@@ -186,7 +186,7 @@ body {
   	<div id='border' class="container">
 
     <br>
-            <form name="form3" action="addTA_file.php" method="post" enctype="multipart/form-data">
+            <form name="form3" action="add_TA.php" method="post" enctype="multipart/form-data">
   			  <label class="thick">Firstname :</label>
   			  <br>
   			  <input id="floatleft" type="text" name="firstname" placeholder="Enter TA's firstname" required>
@@ -223,11 +223,15 @@ body {
             <br>
             <form name="form4" action="removeTA.php" method="post" enctype="multipart/form-data">
   
-			  <lable class="thick">Enter the TAs email:</lable>
+			  <lable class="thick">TAs email:</lable>
 			  <br>
-			　<input id="floatleft" type="email" name="rmTA" placeholder="Enter TA's email" required>
+			　<input id="rmTA" type="email" name="rmTA" placeholder="Enter TA's email" required>
 			  <br>
-
+              <br>
+			  <lable class="thick">Course name :</lable>
+			  <br>
+			  <input id="removeTA_course_name" type="text" name="removeTA_course_name" placeholder="Enter TA's course" required>
+			  <br>
 			  
 			  <br>
 			  <input type="submit" class="btn btn-primary" name="submit" value="Remove">
@@ -288,17 +292,11 @@ body {
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
     $loggedin_user = $_SESSION["email"];
-    //$que = "SELECT * FROM faculty_course_mapping_table WHERE `course_name` IN (select course_name from faculty_course_mapping_table where `instructor_email` = '$loggedin_user')";
-    //$result = mysqli_query($conn,$que);
-
-    $stmt = $conn->prepare("SELECT * FROM faculty_course_mapping_table WHERE `course_name` IN (select course_name from faculty_course_mapping_table where `instructor_email` = ?)");
-    $stmt->bind_param("s", $email);
-    $email = $loggedin_user;
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $que = "SELECT * FROM faculty_course_mapping_table WHERE `instructor_type` = 'TA' AND `course_name` IN (select course_name from faculty_course_mapping_table where `instructor_email` = '$loggedin_user')";
+    $result = mysqli_query($conn,$que);
 
     $num = mysqli_num_rows($result);
-        while($row = $result->fetch_assoc())
+        while($row = mysqli_fetch_assoc($result))
     {
         ?>
       <tr>
@@ -334,6 +332,11 @@ if(isset($_SESSION['listTAs'])) {
 }
 if(isset($_SESSION['removeTA'])) {
     echo '<script type="text/javascript">openCity(event,"remove");</script>';
+    echo '<script type="text/javascript">document.getElementById("rmTA").value = "'.$_SESSION['removeTA'].'";</script>';
+    if(isset($_SESSION['removeTA_course'])) {
+        echo '<script type="text/javascript">document.getElementById("removeTA_course_name").value = "'.$_SESSION['removeTA_course'].'";</script>';
+        unset($_SESSION['removeTA_course']);
+    }
     unset($_SESSION['removeTA']);
 }
 ?>

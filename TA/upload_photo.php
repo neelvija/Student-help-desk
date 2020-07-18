@@ -18,16 +18,11 @@ if ( isset($_FILES["picpath"])) {
               $em = $_POST['email'];
               $pic = $_FILES['picpath'];
               $name=$pic['name'];
-
-              $stmt = $conn->prepare("SELECT * FROM TA_records WHERE Email= ?");
-              $stmt->bind_param("s", $email);
-              $email = $em;
-              $stmt->execute();
-              $result = $stmt->get_result();
+              $selectTA = "SELECT * FROM TA_records WHERE Email='$em'";
               
-              
+              $result = $conn->query($selectTA);
               //code for upload picture.
-              if($row = $result->fetch_assoc()){
+              if($result->num_rows>0){
                   $form_data = $_FILES['picpath']['tmp_name'];
                   $data = addslashes(fread(fopen($form_data, "r"), filesize($form_data)));
 
